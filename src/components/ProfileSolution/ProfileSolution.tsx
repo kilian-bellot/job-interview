@@ -1,9 +1,6 @@
 import axios from "axios";
-import { FC, useEffect, useState } from "react";
-
-const Username = ({ username }: { username: string }) => {
-  return <p data-testid="username">Hi {username}!</p>;
-};
+import { FC, useContext, useEffect, useState } from "react";
+import { ColorContext } from "../../context";
 
 export interface Address {
   number: string;
@@ -12,6 +9,21 @@ export interface Address {
   province: string;
   country: string;
 }
+
+export interface ProfileProps {
+  username: string;
+  showAddresses: boolean;
+}
+
+const Username = ({ username }: { username: string }) => {
+  const context = useContext(ColorContext);
+
+  return (
+    <p style={{ color: context.color }} data-testid="username">
+      Hi {username}!
+    </p>
+  );
+};
 
 const Addresses: FC<{ addresses: Address[] }> = ({ addresses }) => {
   return (
@@ -24,11 +36,6 @@ const Addresses: FC<{ addresses: Address[] }> = ({ addresses }) => {
     </ul>
   );
 };
-
-export interface ProfileProps {
-  username: string;
-  showAddresses: boolean;
-}
 
 const Profile: FC<ProfileProps> = ({ username, showAddresses }) => {
   const [addresses, setAddresses] = useState<Address[]>([]);
