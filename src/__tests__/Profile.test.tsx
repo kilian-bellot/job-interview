@@ -1,4 +1,4 @@
-import Profile from "../components/ProfileSolution/ProfileSolution";
+import Profile from "../components/Profile/Profile";
 import { render, waitFor, screen } from "@testing-library/react";
 import { mocked } from "ts-jest/utils";
 import axios from "axios";
@@ -11,26 +11,7 @@ const setup = (props: any = { username: "aUsername", isLoggedIn: true, showAddre
 };
 
 describe("Profile", () => {
-  it("should call API to retrieve username", async () => {
-    mockedAxiosGet.mockResolvedValue({ data: [] });
-    setup();
-    await waitFor(() => {
-      expect(mockedAxiosGet).toHaveBeenCalled();
-    });
-  });
-  it("should display username", () => {
-    setup({ showAddresses: false });
-    const username = screen.getByTestId("username");
-    expect(username).toBeInTheDocument();
-  });
-  it("should display username and addresses", async () => {
-    mockedAxiosGet.mockResolvedValue({
-      data: [{ number: "33", street: "rue ontario", city: "montreal", province: "QC", country: "canada" }],
-    });
-    setup();
-    const addressList = screen.getByTestId("address-list");
-    await waitFor(() => {
-      expect(addressList).toBeInTheDocument();
-    });
-  });
+  it.todo("should call API to retrieve username");
+  it.todo("should display username");
+  it.todo("should display username and addresses");
 });
