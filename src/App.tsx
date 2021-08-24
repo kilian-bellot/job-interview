@@ -1,10 +1,14 @@
 import "./App.css";
-import Profile from "./components/Profile/Profile";
+import ProfileSolution from "./components/ProfileSolution/ProfileSolution";
 
 function App() {
+  const isLoggedIn = true;
+
   return (
     <div className="App">
-      <Profile username={"FoobarTheBoneless"} isLoggedIn={true} showAddresses={true} />
+      {isLoggedIn && (
+        <ProfileSolution username="FoobarTheBoneless" showAddresses={true} />
+      )}
     </div>
   );
 }
