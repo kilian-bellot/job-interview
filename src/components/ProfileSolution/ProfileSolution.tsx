@@ -1,9 +1,6 @@
 import axios from "axios";
-import { FC, useEffect, useState } from "react";
-
-const Username = ({ username }: { username: string }) => {
-  return <div data-testid="username">Hi {username}!</div>;
-};
+import { FC, useContext, useEffect, useState } from "react";
+import { ColorContext } from "../../context";
 
 export interface Address {
   number: string;
@@ -13,28 +10,34 @@ export interface Address {
   country: string;
 }
 
+export interface ProfileProps {
+  username: string;
+  showAddresses: boolean;
+}
+
+const Username = ({ username }: { username: string }) => {
+  const context = useContext(ColorContext);
+
+  return (
+    <p style={{ color: context.color }} data-testid="username">
+      Hi {username}!
+    </p>
+  );
+};
+
 const Addresses: FC<{ addresses: Address[] }> = ({ addresses }) => {
   return (
     <ul data-testid="address-list">
-      {addresses.map((address, idx) => {
-        const { number, street, city, province, country } = address;
-        return (
-          <span
-            key={idx}
-          >{`${number} ${street} ${city} ${province} ${country}`}</span>
-        );
-      })}
+      {addresses.map(({ number, street, city, province, country }, idx) => (
+        <span
+          key={idx}
+        >{`${number} ${street} ${city} ${province} ${country}`}</span>
+      ))}
     </ul>
   );
 };
 
-export interface ProfileProps {
-  username: string;
-  isLoggedIn: boolean;
-  showAddresses: boolean;
-}
-
-const Profile: FC<ProfileProps> = ({ username, isLoggedIn, showAddresses }) => {
+const Profile: FC<ProfileProps> = ({ username, showAddresses }) => {
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [isError, setIsError] = useState(false);
 
@@ -58,8 +61,6 @@ const Profile: FC<ProfileProps> = ({ username, isLoggedIn, showAddresses }) => {
       }
     })();
   }, [showAddresses, username]);
-
-  if (!isLoggedIn) return null;
 
   return (
     <div>
