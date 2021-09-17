@@ -1,6 +1,7 @@
 import axios from "axios";
 import { FC, useContext, useEffect, useState } from "react";
-import { ColorContext } from "../../context";
+import { ColorContext } from "src/context";
+
 
 export interface Address {
   number: string;
