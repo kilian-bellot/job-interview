@@ -16,7 +16,7 @@ export interface ProfileProps {
 }
 
 const Username = ({ username }: { username: string }) => {
-  const context = useContext(ColorContext);
+  const { color } = useContext(ColorContext);
 
   return (
     <p style={{ color: context.color }} data-testid="username">
